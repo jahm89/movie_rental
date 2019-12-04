@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use JWTAuth;
 use App\Movie;
+use App\LikeMovie;
+use App\Log;
+use App\Rental;
+use App\Purchase;
 use Illuminate\Http\Request;
 
 class MovieController extends Controller
@@ -14,41 +18,112 @@ class MovieController extends Controller
     protected $user;
 
     /**
-     * TaskController constructor.
+     * MovieController constructor.
      */
     public function __construct()
     {
-    	$this->middleware('auth.role:admin', ['only' => ['store']]);
+    	$this->middleware('auth.role:admin', ['only' => ['store', 'update', 'destroy']]);
     }
 
     /**
  	* @return mixed
  	*/
- 	public function index()
+ 	public function index(Request $request)
  	{
- 		$movies =  Movie::all();
+        $sort  = null;
+        $availability = null;
+        $page = null;
+        $per_page = null;
 
- 		return $movies;
- 	}
+        if(array_key_exists('sort', $request->all())){
+            $sort = $request->all()['sort'];
+        }
+        if(array_key_exists('availability', $request->all())){
+            $availability = $request->all()['availability'];
+        }
+        if(array_key_exists('page', $request->all())){
+            $page = $request->all()['page'] - 1;
+        }
+        if(array_key_exists('per_page', $request->all())){
+            $per_page = $request->all()['per_page'];
+        }
+
+        //Add a switch to have more flexibility to sort for any parameter
+        switch ($sort) {
+            case 'popularity':
+            $movies =  Movie::orderBy('likes', 'desc');
+            break;
+            
+            default:
+            $movies =  Movie::orderBy('title', 'asc');
+            break;
+        }
+
+        //Adding pagination
+        if($page !== null && $per_page != null){
+            $movies->skip($page*$per_page)->take($per_page);
+        }
+
+        //Check if the parameter availability exists (only admin can use this filter)
+        if($availability != null){
+
+            $user = JWTAuth::parseToken()->authenticate();
+            
+            if ($user->role != 'admin') {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Sorry, you are not authorized to use this filter.'
+                ], 400);
+            }
+
+            if ($availability != 'all') {
+                $movies->where('availability', $availability);    
+            }    
+
+        }
+        else{
+            $movies->where('availability', 1);
+        }
+
+        return $movies->get();
+    }
 
     /**
- * @param Request $request
- * @return \Illuminate\Http\JsonResponse
- * @throws \Illuminate\Validation\ValidationException
- */
+    * @param $id
+    * @return \Illuminate\Http\JsonResponse
+    */
+    public function show($id)
+    {
+        $movie = Movie::find($id);
+
+        if (!$movie) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Sorry, movie with id ' . $id . ' cannot be found.'
+            ], 400);
+        }
+
+        return $movie;
+    }
+
+    /**
+    * @param Request $request
+    * @return \Illuminate\Http\JsonResponse
+    * @throws \Illuminate\Validation\ValidationException
+    */
     public function store(Request $request)
     {
 
     	$request->validate([
     		'name' => 'required', 
             'description' => 'required',
-    		'title' => 'required', 
-    		'stock' => 'required', 
-    		'rental_price' => 'required', 
-    		'sale_price' => 'required', 
-    		'availability' => 'required', 
-    		'monetary_penalty' => 'required'
-    	]);
+            'title' => 'required', 
+            'stock' => 'required', 
+            'rental_price' => 'required', 
+            'sale_price' => 'required', 
+            'availability' => 'required', 
+            'monetary_penalty' => 'required'
+        ]);
 
     	$movie = new Movie();
     	$movie->title = $request->title;
@@ -70,5 +145,256 @@ class MovieController extends Controller
     			'success' => false,
     			'message' => 'Sorry, movie could not be added.'
     		], 500);
+    }
+
+    /**
+    * @param Request $request
+    * @param $id
+    * @return \Illuminate\Http\JsonResponse
+    */
+    public function update(Request $request, $id)
+    {
+        
+        $movie = Movie::find($id);
+
+        if (!$movie) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Sorry, movie with id ' . $id . ' cannot be found.'
+            ], 400);
+        }
+
+        $user = JWTAuth::parseToken()->authenticate();
+
+        //Info for log
+        $text = "Who did it: ".$user->name." - ";
+        $text .= "Fields saving Title: ".$movie->title.", ";
+        $text .= "Rental price: ".$movie->rental_price.", ";
+        $text .= "Sale price: ".$movie->sale_price;
+
+        $updated = $movie->fill($request->all())->save();
+
+        if ($updated) {
+
+            if($this->saveLog('update', $text)){
+                return response()->json([
+                    'success' => true,
+                    'movie' => $movie
+                ]);
+            }
+            else{
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Sorry, the log could not be created.'
+                ], 500);
+            }
+
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Sorry, movie could not be updated.'
+            ], 500);
+        }
+    }
+
+    /**
+    * @param Request $request
+    * @param $id
+    * @return \Illuminate\Http\JsonResponse
+    */
+    public function liked(Request $request)
+    {
+        $id = $request->all()['movie_id'];
+        $user = JWTAuth::parseToken()->authenticate();
+
+        $movie = Movie::find($id);
+
+        if (!$movie) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Sorry, movie with id ' . $id . ' cannot be found.'
+            ], 400);
+        }
+
+        $likeMovie = new LikeMovie();
+        $likeMovie->movie_id = $movie->id;
+        $likeMovie->user_id = $user->id;
+
+        if ($likeMovie->save()){
+            $movie->likes = $movie->likes + 1;
+
+            if ($movie->save()) {
+                return response()->json([
+                    'success' => true,
+                    'movie' => $movie
+                ]);
+            }
+            else{
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Sorry, movie could not be liked.'
+                ], 500);
+            }
+        }   
+        else{
+            return response()->json([
+                'success' => false,
+                'message' => 'Sorry, movie could not be liked.'
+            ], 500);
+        }
+    }
+
+    /**
+    * @param $id
+    * @return \Illuminate\Http\JsonResponse
+    */
+    public function destroy($id)
+    {
+        $movie = Movie::find($id);
+
+        if (!$movie) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Sorry, movie with id ' . $id . ' cannot be found.'
+            ], 400);
+        }
+
+        if ($movie->delete()) {
+            return response()->json([
+                'success' => true
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Movie could not be deleted.'
+            ], 500);
+        }
+    }
+
+    /**
+    * @param Request $request
+    * @return \Illuminate\Http\JsonResponse
+    */
+    public function rental(Request $request){
+
+        $request->validate([
+            'movie_id' => 'required', 
+            'deadline' => 'required|date'
+        ]);
+
+        $movie = Movie::find($request->movie_id);
+
+        if (!$movie || $movie->availability == 0) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Sorry, movie with id ' . $request->movie_id . ' cannot be found or is not available.'
+            ], 400);
+        }
+        
+        $user = JWTAuth::parseToken()->authenticate();
+
+        $rental = new Rental();
+        $rental->return_deadline = $request->deadline;
+        $rental->user_id = $user->id;
+        $rental->movie_id = $request->movie_id;
+
+        if ($rental->save()){
+
+            //Info for log
+            $text = "Who did it: ".$user->name." - ";
+            $text .= "Dealine: ".$request->deadline.", ";
+            $text .= "When: ".date('Y-m-d H:i:s');
+
+            if($this->saveLog('rental', $text)){
+                return response()->json([
+                    'success' => true,
+                    'rental' => $rental
+                ]);
+            }
+            else{
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Sorry, the log could not be created.'
+                ], 500);
+            }
+
+        }
+        else{
+            return response()->json([
+                'success' => false,
+                'message' => 'Sorry, the rental could not be added.'
+            ], 500);
+        }
+    }
+
+    /**
+    * @param Request $request
+    * @return \Illuminate\Http\JsonResponse
+    */
+    public function purchase(Request $request){
+
+        $request->validate([
+            'movie_id' => 'required', 
+            'amount' => 'required|min:1'
+        ]);
+
+        $movie = Movie::find($request->movie_id);
+
+        if (!$movie || $movie->availability == 0) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Sorry, movie with id ' . $request->movie_id . ' cannot be found or is not available.'
+            ], 400);
+        }
+
+        $user = JWTAuth::parseToken()->authenticate();
+
+        $purchase = new Purchase();
+        $purchase->amount = $request->amount;
+        $purchase->user_id = $user->id;
+        $purchase->movie_id = $request->movie_id;
+        $purchase->total = $request->amount * $movie->sale_price;
+
+        if ($purchase->save()){
+            //Info for log
+            $text = "Who did it: ".$user->name." - ";
+            $text .= "How many: ".$request->amount.", ";
+            $text .= "When: ".date('Y-m-d H:i:s');
+
+            if($this->saveLog('purchase', $text)){
+                return response()->json([
+                    'success' => true,
+                    'purchase' => $purchase
+                ]);
+            }
+            else{
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Sorry, the log could not be created.'
+                ], 500);
+            }
+        }
+        else
+            return response()->json([
+                'success' => false,
+                'message' => 'Sorry, the purchase could not be added.'
+            ], 500);
+    }
+
+    /**
+    * @param $type
+    * @param $text
+    */
+    public function saveLog($type, $text){
+
+        $log = new Log();
+        $log->type = $type;
+        $log->text = $text;
+
+        if ($log->save())
+            return true;
+        else
+            return false;
+
     }
 }
