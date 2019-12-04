@@ -19,7 +19,7 @@ class User extends Authenticatable implements JWTSubject
     /**
      * @var array
      */
-    protected $fillable = ['name', 'email', 'email_verified_at', 'password'];
+    protected $fillable = ['name', 'email', 'email_verified_at', 'password', 'role'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

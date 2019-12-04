@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property string $name
  * @property string $title
+ * @property string $description
  * @property int $stock
  * @property float $rental_price
  * @property float $sale_price
@@ -32,7 +33,7 @@ class Movie extends Model
     /**
      * @var array
      */
-    protected $fillable = ['name', 'title', 'stock', 'rental_price', 'sale_price', 'availability', 'monetary_penalty'];
+    protected $fillable = ['name', 'title', 'description', 'stock', 'rental_price', 'sale_price', 'availability', 'monetary_penalty', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

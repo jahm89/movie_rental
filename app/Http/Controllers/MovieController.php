@@ -18,7 +18,7 @@ class MovieController extends Controller
      */
     public function __construct()
     {
-    	//$this->user = JWTAuth::parseToken()->authenticate();
+    	$this->middleware('auth.role:admin', ['only' => ['store']]);
     }
 
     /**
@@ -36,10 +36,12 @@ class MovieController extends Controller
  * @return \Illuminate\Http\JsonResponse
  * @throws \Illuminate\Validation\ValidationException
  */
-    public function save(Request $request)
+    public function store(Request $request)
     {
-    	$this->validate($request, [
+
+    	$request->validate([
     		'name' => 'required', 
+            'description' => 'required',
     		'title' => 'required', 
     		'stock' => 'required', 
     		'rental_price' => 'required', 
@@ -52,7 +54,6 @@ class MovieController extends Controller
     	$movie->title = $request->title;
     	$movie->description = $request->description;
     	$movie->name = $request->name;
-    	$movie->title = $request->title;
     	$movie->stock = $request->stock;
     	$movie->rental_price = $request->rental_price;
     	$movie->sale_price = $request->sale_price;

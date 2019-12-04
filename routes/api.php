@@ -20,9 +20,10 @@ Route::post('login', 'AuthController@login');
 Route::post('register', 'AuthController@register');
 Route::get('movies', 'MovieController@index');
 
+
 Route::group(['middleware' => 'auth.jwt'], function () {
     Route::get('logout', 'AuthController@logout');
-    Route::post('movies', 'MovieController@save');
+	Route::post('movies', 'MovieController@store');    
 
     // Route::get('tasks/{id}', 'TaskController@show');
     // Route::post('tasks', 'TaskController@store');
