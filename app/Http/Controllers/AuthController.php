@@ -15,6 +15,14 @@ class AuthController extends Controller
      */
     public $loginAfterSignUp = true;
 
+    /**
+     * AuthController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth.role:admin', ['only' => ['changeRole']]);
+    }
+
 	/**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
@@ -83,5 +91,42 @@ class AuthController extends Controller
             'success'   =>  true,
             'data'      =>  $user
         ], 200);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function changeRole(Request $request)
+    {
+        $request->validate([
+            'id' => 'required', 
+            'role' => 'required',
+        ]);
+
+        $user = User::find($request->id);
+
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Sorry, user with id ' . $request->id . ' cannot be found.'
+            ], 400);
+        }
+
+        $user->role = $request->role;
+
+        if ($user->save()) {
+            return response()->json([
+                'success'   =>  true,
+                'data'      =>  $user
+            ], 200);            
+        }
+        else{
+            return response()->json([
+                'success' => false,
+                'message' => 'Sorry, user could not be updated.'
+            ], 500);
+        }
+
     }
 }

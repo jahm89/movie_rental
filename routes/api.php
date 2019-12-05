@@ -19,20 +19,18 @@ use Illuminate\Http\Request;
 Route::post('login', 'AuthController@login');
 Route::post('register', 'AuthController@register');
 Route::get('movies', 'MovieController@index');
-Route::get('movies/{id}', 'MovieController@show');
+Route::get('movies/find/{id}', 'MovieController@show');
+Route::get('movies/findByname', 'MovieController@findByName');
 
 
 Route::group(['middleware' => 'auth.jwt'], function () {
     Route::get('logout', 'AuthController@logout');
+    Route::post('user/changeRole', 'AuthController@changeRole');
 	Route::post('movies', 'MovieController@store');
 	Route::post('movies/like', 'MovieController@liked');
 	Route::put('movies/{id}', 'MovieController@update');    
 	Route::delete('movies/{id}', 'MovieController@destroy');
 	Route::post('movies/rental', 'MovieController@rental');
 	Route::post('movies/purchase', 'MovieController@purchase');
-
-    // Route::get('tasks/{id}', 'TaskController@show');
-    // Route::post('tasks', 'TaskController@store');
-    // Route::put('tasks/{id}', 'TaskController@update');
-    // Route::delete('tasks/{id}', 'TaskController@destroy');
+	Route::post('movies/rentalReturn', 'MovieController@rental_return');
 });

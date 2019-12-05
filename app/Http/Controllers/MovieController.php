@@ -12,17 +12,13 @@ use Illuminate\Http\Request;
 
 class MovieController extends Controller
 {
-    /**
-     * @var
-     */
-    protected $user;
 
     /**
      * MovieController constructor.
      */
     public function __construct()
     {
-    	$this->middleware('auth.role:admin', ['only' => ['store', 'update', 'destroy']]);
+    	$this->middleware('auth.role:admin', ['only' => ['store', 'update', 'destroy', 'rental_return']]);
     }
 
     /**
@@ -100,6 +96,30 @@ class MovieController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Sorry, movie with id ' . $id . ' cannot be found.'
+            ], 400);
+        }
+
+        return $movie;
+    }
+
+    /**
+    * @param $id
+    * @return \Illuminate\Http\JsonResponse
+    */
+    public function findByName(Request $request)
+    {
+        $name = '';
+
+        if($request->all()['name']){
+            $name = $request->all()['name'];
+        }
+
+        $movie = Movie::where('name', 'like', '%' . $name . '%')->get();
+
+        if (!$movie) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Sorry, movie with name ' . $name . ' cannot be found.'
             ], 400);
         }
 
@@ -216,6 +236,16 @@ class MovieController extends Controller
             ], 400);
         }
 
+        $likeMovie = LikeMovie::where('movie_id', $movie->id)
+                              ->where('user_id', $user->id)->first();
+
+        if ($likeMovie !== null) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Sorry, you already have liked this movie with id ' . $id . '.'
+            ], 400);
+        }
+
         $likeMovie = new LikeMovie();
         $likeMovie->movie_id = $movie->id;
         $likeMovie->user_id = $user->id;
@@ -306,6 +336,66 @@ class MovieController extends Controller
             $text .= "When: ".date('Y-m-d H:i:s');
 
             if($this->saveLog('rental', $text)){
+                return response()->json([
+                    'success' => true,
+                    'rental' => $rental
+                ]);
+            }
+            else{
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Sorry, the log could not be created.'
+                ], 500);
+            }
+
+        }
+        else{
+            return response()->json([
+                'success' => false,
+                'message' => 'Sorry, the rental could not be added.'
+            ], 500);
+        }
+    }
+
+    /**
+    * @param Request $request
+    * @return \Illuminate\Http\JsonResponse
+    */
+    public function rental_return(Request $request){
+
+        $request->validate([
+            'rental_id' => 'required'
+        ]);
+
+        $rental = Rental::find($request->rental_id);
+        $current_date = date('Y-m-d');
+
+        if (!$rental || ($rental->return_date != null && $rental->return_date != '')) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Sorry, rental with id ' . $request->rental_id . ' cannot be found or already has been returned.'
+            ], 400);
+        }
+        
+        $user = JWTAuth::parseToken()->authenticate();
+
+        $rental->penalty = 0;
+        $rental->return_date = $current_date;
+
+        //Add penalty if the return date is higher than deadline
+        if ($current_date > $rental->return_deadline) {
+            $rental->penalty = $rental->Movie->monetary_penalty;
+        }
+
+        if ($rental->save()){
+
+            //Info for log
+            $text = "Who did it: ".$user->name." - ";
+            $text .= "Dealine: ".$request->deadline.", ";
+            $text .= "Penalty: ".$request->deadline.", ";
+            $text .= "When: ".date('Y-m-d H:i:s');
+
+            if($this->saveLog('rental return', $text)){
                 return response()->json([
                     'success' => true,
                     'rental' => $rental
