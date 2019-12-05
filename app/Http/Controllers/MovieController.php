@@ -10,7 +10,6 @@ use App\Log;
 use App\Rental;
 use App\Purchase;
 use App\Image;
-
 use Illuminate\Http\Request;
 
 class MovieController extends Controller

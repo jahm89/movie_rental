@@ -142,4 +142,13 @@ class AuthController extends Controller
         }
 
     }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function verifyUser(Request $request)
+    {
+
+    }
 }

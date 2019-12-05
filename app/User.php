@@ -7,8 +7,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 {
+    use Notifiable;
+
     /**
      * The table associated with the model.
      * 
@@ -21,6 +23,15 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $fillable = ['name', 'email', 'email_verified_at', 'password', 'role'];
 
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+    
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

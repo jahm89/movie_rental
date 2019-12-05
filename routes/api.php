@@ -16,21 +16,22 @@ use Illuminate\Http\Request;
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-Route::post('login', 'AuthController@login');
 Route::post('register', 'AuthController@register');
+//I added this route to verify user, in case using only APIs
+Route::get('verifyUser', 'AuthController@verifyUser')->middleware('verified');
+Route::post('login', 'AuthController@login');
 Route::get('movies', 'MovieController@index');
 Route::get('movies/find/{id}', 'MovieController@show');
 Route::get('movies/findByname', 'MovieController@findByName');
 
-
 Route::group(['middleware' => 'auth.jwt'], function () {
     Route::get('logout', 'AuthController@logout');
-    Route::post('user/changeRole', 'AuthController@changeRole');
-	Route::post('movies', 'MovieController@store');
-	Route::post('movies/like', 'MovieController@liked');
-	Route::put('movies/{id}', 'MovieController@update');    
-	Route::delete('movies/{id}', 'MovieController@destroy');
-	Route::post('movies/rental', 'MovieController@rental');
-	Route::post('movies/purchase', 'MovieController@purchase');
-	Route::post('movies/rentalReturn', 'MovieController@rentalReturn');
+    Route::post('user/changeRole', 'AuthController@changeRole')->middleware('verified');
+	Route::post('movies', 'MovieController@store')->middleware('verified');
+	Route::post('movies/like', 'MovieController@liked')->middleware('verified');
+	Route::put('movies/{id}', 'MovieController@update')->middleware('verified');    
+	Route::delete('movies/{id}', 'MovieController@destroy')->middleware('verified');
+	Route::post('movies/rental', 'MovieController@rental')->middleware('verified');
+	Route::post('movies/purchase', 'MovieController@purchase')->middleware('verified');
+	Route::post('movies/rentalReturn', 'MovieController@rentalReturn')->middleware('verified');
 });
