@@ -76,3 +76,13 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+##How install
+
+##How to run unit tests
+Remove the line: "$this->assertTrue(true)" and Uncomment the following methods:
+
+- UserTest: testRegisterSucess
+- MovieTest: testCreateMovieWithAdminRole
+
+Then run the command: ./vendor/bin/phpunit

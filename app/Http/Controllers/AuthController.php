@@ -42,7 +42,7 @@ class AuthController extends Controller
 		return response()->json([
 			'success' => true,
 			'token' => $token,
-		]);
+		], 200);
 	}
 
 	/**
@@ -77,20 +77,33 @@ class AuthController extends Controller
      */
     public function register(RegistrationFormRequest $request)
     {
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);
-        $user->save();
+        $request->validate([
+            'name' => 'required', 
+            'email' => 'required',
+            'password' => 'required|min:6'
+        ]);
 
-        if ($this->loginAfterSignUp) {
-            return $this->login($request);
+        try {
+            $user = new User();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = bcrypt($request->password);
+            $user->save();
+
+            if ($this->loginAfterSignUp) {
+                return $this->login($request);
+            }
+
+            return response()->json([
+                'success'   =>  true,
+                'data'      =>  $user
+            ], 200);
+        }catch(\Illuminate\Database\QueryException $ex){ 
+            return response()->json([
+                    'success' => false,
+                    'message' => $ex->getMessage()
+                ], 500);
         }
-
-        return response()->json([
-            'success'   =>  true,
-            'data'      =>  $user
-        ], 200);
     }
 
     /**

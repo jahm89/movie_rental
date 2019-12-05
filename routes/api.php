@@ -32,5 +32,5 @@ Route::group(['middleware' => 'auth.jwt'], function () {
 	Route::delete('movies/{id}', 'MovieController@destroy');
 	Route::post('movies/rental', 'MovieController@rental');
 	Route::post('movies/purchase', 'MovieController@purchase');
-	Route::post('movies/rentalReturn', 'MovieController@rental_return');
+	Route::post('movies/rentalReturn', 'MovieController@rentalReturn');
 });
