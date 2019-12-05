@@ -378,10 +378,10 @@ class MovieController extends Controller
 
             $movie = Movie::find($request->movie_id);
 
-            if (!$movie || $movie->availability == 0) {
+            if (!$movie || $movie->availability == 0 || $movie->stock == 0) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Sorry, movie with id ' . $request->movie_id . ' cannot be found or is not available.'
+                    'message' => 'Sorry, movie with id ' . $request->movie_id . ' cannot be found, is not available or is not in stock.'
                 ], 400);
             }
             
@@ -393,6 +393,10 @@ class MovieController extends Controller
             $rental->movie_id = $request->movie_id;
 
             if ($rental->save()){
+
+                //Decrease stock
+                $movie->stock = $movie->stock - 1;
+                $movie->save();
 
                 //Info for log
                 $text = "Who did it: ".$user->name." - ";
@@ -460,6 +464,12 @@ class MovieController extends Controller
 
             if ($rental->save()){
 
+                //Increase stock
+                $movie = Movie::find($rental->movie_id);
+
+                $movie->stock = $movie->stock + 1;
+                $movie->save();
+
                 //Info for log
                 $text = "Who did it: ".$user->name." - ";
                 $text .= "Dealine: ".$request->deadline.", ";
@@ -506,27 +516,36 @@ class MovieController extends Controller
                 'amount' => 'required|min:1'
             ]);
 
-            $movie = Movie::find($request->movie_id);
+            $amount = $request->amount;
+            $movie_id = $request->movie_id;
 
-            if (!$movie || $movie->availability == 0) {
+            $movie = Movie::find($movie_id);
+
+
+            if (!$movie || $movie->availability == 0 || $movie->stock < $amount) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Sorry, movie with id ' . $request->movie_id . ' cannot be found or is not available.'
+                    'message' => 'Sorry, movie with id ' . $movie_id . ' cannot be found, is not available or the amount required is greater than the stock.'
                 ], 400);
             }
 
             $user = JWTAuth::parseToken()->authenticate();
 
             $purchase = new Purchase();
-            $purchase->amount = $request->amount;
+            $purchase->amount = $amount;
             $purchase->user_id = $user->id;
-            $purchase->movie_id = $request->movie_id;
-            $purchase->total = $request->amount * $movie->sale_price;
+            $purchase->movie_id = $movie_id;
+            $purchase->total = $amount * $movie->sale_price;
 
             if ($purchase->save()){
+
+                //Decrease stock
+                $movie->stock = $movie->stock - $amount;
+                $movie->save();
+                
                 //Info for log
                 $text = "Who did it: ".$user->name." - ";
-                $text .= "How many: ".$request->amount.", ";
+                $text .= "How many: ".$amount.", ";
                 $text .= "When: ".date('Y-m-d H:i:s');
 
                 if($this->saveLog('purchase', $text)){

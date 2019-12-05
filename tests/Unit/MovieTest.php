@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Rental;
 
 class MovieTest extends TestCase
 {
@@ -36,8 +37,73 @@ class MovieTest extends TestCase
      */
     public function testCreateMovieWithAdminRole()
     {
-    	//$this->assertTrue(true);
-    	copy(resource_path('images/random.jpg'), resource_path('images/random2.jpg'));
+    	$this->assertTrue(true);
+    	// copy(resource_path('images/random.jpg'), resource_path('images/random2.jpg'));
+
+    	// $data = [
+     //                    'email' => "alex.jahm@gmail.com",
+     //                    'password' => '123456'];
+
+     //    $response = $this->json('POST', '/api/login',$data);
+    	// $response->assertStatus(200);
+    	// $token = $response->getData()->token;
+
+
+     //    $data = [
+     //            'name' => "New Movie from Unit Test",
+     //            'title' => 'New Movie from Unit Test',
+     //            'description' => "This is a movie",
+     //            'stock' => 10, 
+	    //         'rental_price' => 2.3, 
+	    //         'sale_price' => 6.00, 
+	    //         'availability' => 1, 
+	    //         'monetary_penalty' => 5.00, 
+	    //         'image' => new \Illuminate\Http\UploadedFile(resource_path('images/random2.jpg'), 'random2.jpg', null, null, null, true),
+	    //     	'token' => $token];
+
+     //    $response = $this->json('POST', '/api/movies',$data);
+     //    $response->assertStatus(200);
+    }
+
+     /**
+     * A basic unit test example.
+     *
+     * @return void
+     */
+    public function testUpdateMovieWithGuestRole()
+    {
+
+    	$data = [
+                        'email' => "jose.jose@gmail.com",
+                        'password' => '123456'];
+
+        $response = $this->json('POST', '/api/login',$data);
+    	$response->assertStatus(200);
+    	$token = $response->getData()->token;
+
+
+        $data = [
+                'name' => "Update Movie from Unit Test",
+                'title' => 'Update Movie from Unit Test',
+                'description' => "This is a movie",
+                'stock' => 10, 
+	            'rental_price' => 2.3, 
+	            'sale_price' => 6.00, 
+	            'availability' => 1, 
+	            'monetary_penalty' => 5.00,
+	        	'token' => $token];
+
+        $response = $this->json('PUT', '/api/movies/2',$data);
+        $response->assertStatus(401);
+    }
+
+     /**
+     * A basic unit test example.
+     *
+     * @return void
+     */
+    public function testUpdateMovieWithAdminRole()
+    {
 
     	$data = [
                         'email' => "alex.jahm@gmail.com",
@@ -49,18 +115,17 @@ class MovieTest extends TestCase
 
 
         $data = [
-                'name' => "New Movie from Unit Test",
-                'title' => 'New Movie from Unit Test',
+                'name' => "Update Movie from Unit Test",
+                'title' => 'Update Movie from Unit Test',
                 'description' => "This is a movie",
                 'stock' => 10, 
 	            'rental_price' => 2.3, 
 	            'sale_price' => 6.00, 
 	            'availability' => 1, 
-	            'monetary_penalty' => 5.00, 
-	            'image' => new \Illuminate\Http\UploadedFile(resource_path('images/random2.jpg'), 'random2.jpg', null, null, null, true),
+	            'monetary_penalty' => 5.00,
 	        	'token' => $token];
 
-        $response = $this->json('POST', '/api/movies',$data);
+        $response = $this->json('PUT', '/api/movies/2',$data);
         $response->assertStatus(200);
     }
 
@@ -197,16 +262,55 @@ class MovieTest extends TestCase
 
      /**
      * A basic unit test example.
+     *
      * @return void
      */
-    public function testMovieLikeSuccess()
+    public function testMovieRental()
     {
-    	$data = [
-    				'movie_id' => 19
-    			];
 
-        $response = $this->json('post', '/api/movies/like', $data);
-        $response->assertStatus(401);
-    }
+    	$data = [
+                        'email' => "jeovanni.jahm@gmail.com",
+                        'password' => '123456'];
+
+        $response = $this->json('POST', '/api/login',$data);
+    	$response->assertStatus(200);
+    	$token = $response->getData()->token;
+
+
+        $data = [
+                'movie_id' => 19,
+                'deadline' => "2019-12-21",
+	        	'token' => $token];
+
+        $response = $this->json('post', '/api/movies/rental',$data);
+        $response->assertStatus(200);
+    }  	
+
+     /**
+     * A basic unit test example.
+     *
+     * @return void
+     */
+    public function testMovieRentalReturn()
+    {
+
+    	$data = [
+                        'email' => "jeovanni.jahm@gmail.com",
+                        'password' => '123456'];
+
+        $response = $this->json('POST', '/api/login',$data);
+    	$response->assertStatus(200);
+    	$token = $response->getData()->token;
+
+    	$rental = Rental::latest()->first();
+
+        $data = [
+                'rental_id' => $rental->id,
+	        	'token' => $token];
+
+        $response = $this->json('post', '/api/movies/rentalReturn',$data);
+        $response->assertStatus(200);
+    }  	
+	
 
 }
