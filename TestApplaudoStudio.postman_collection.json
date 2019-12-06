@@ -1,0 +1,479 @@
+{
+	"variables": [],
+	"info": {
+		"name": "TestApplaudoStudio",
+		"_postman_id": "2b98d162-7bc5-10b3-4b12-e7b326a621b3",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "register an user",
+			"request": {
+				"url": "http://127.0.0.1/movie_rental/api/register",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Alex Morales",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "jeovanni.jahm5@gmail.com",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": "The email needs to be unique.\n\nIf already exist an user with the email you will a message.\n\nAfter to register you need to verify to the user, using the numeral 1 in the NOTES section of the readme file.\n\nThat step is necessary before to login with the new user created.\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"url": "http://localhost/movie_rental/api/login",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Alex Hernandez",
+							"description": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "alex.jahm@gmail.com",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "add a movie",
+			"request": {
+				"url": "http://localhost/movie_rental/api/movies",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "It Chapter Two",
+							"description": ""
+						},
+						{
+							"key": "title",
+							"value": "It Chapter Two",
+							"description": ""
+						},
+						{
+							"key": "description",
+							"value": "Now adults played by the likes of James McAvoy, Jessica Chastain and Bill Hader, The Losers Club returns to Derry,",
+							"description": ""
+						},
+						{
+							"key": "stock",
+							"value": "20",
+							"description": ""
+						},
+						{
+							"key": "rental_price",
+							"value": "5.50",
+							"description": ""
+						},
+						{
+							"key": "sale_price",
+							"value": "20",
+							"description": ""
+						},
+						{
+							"key": "availability",
+							"value": "1",
+							"description": ""
+						},
+						{
+							"key": "monetary_penalty",
+							"value": "3",
+							"description": ""
+						},
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL21vdmllX3JlbnRhbFwvYXBpXC9sb2dpbiIsImlhdCI6MTU3NTYxMjYzMywiZXhwIjoxNTc1NjE2MjMzLCJuYmYiOjE1NzU2MTI2MzMsImp0aSI6IkszcFBWSHZLVmJZRGNQYnAiLCJzdWIiOjIsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.8eSIeVo9pe4mEtz1BKd7DXkrA9Lk1seDNX_3IBe0Wd0",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"value": "",
+							"description": "",
+							"type": "file"
+						}
+					]
+				},
+				"description": "Create movie (you need to replace the token received from Login request)\n\nThis action is only permited to admin users.\n\nYou can test it with: \nuser: jeovanni.jahm@gmail.com\nrole: guest\npass: 123456\n\nThe request will failed\n"
+			},
+			"response": []
+		},
+		{
+			"name": "modify a movie",
+			"request": {
+				"url": "http://localhost/movie_rental/api/movies",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "It Chapter Two C",
+							"description": ""
+						},
+						{
+							"key": "title",
+							"value": "It Chapter Two C",
+							"description": ""
+						},
+						{
+							"key": "description",
+							"value": "Now adults played by the likes of James McAvoy, Jessica Chastain and Bill Hader, The Losers Club returns to Derry,",
+							"description": ""
+						},
+						{
+							"key": "stock",
+							"value": "20",
+							"description": ""
+						},
+						{
+							"key": "rental_price",
+							"value": "5.50",
+							"description": ""
+						},
+						{
+							"key": "sale_price",
+							"value": "20",
+							"description": ""
+						},
+						{
+							"key": "availability",
+							"value": "1",
+							"description": ""
+						},
+						{
+							"key": "monetary_penalty",
+							"value": "3",
+							"description": ""
+						},
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL21vdmllX3JlbnRhbFwvYXBpXC9sb2dpbiIsImlhdCI6MTU3NTYxMjYzMywiZXhwIjoxNTc1NjE2MjMzLCJuYmYiOjE1NzU2MTI2MzMsImp0aSI6IkszcFBWSHZLVmJZRGNQYnAiLCJzdWIiOjIsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.8eSIeVo9pe4mEtz1BKd7DXkrA9Lk1seDNX_3IBe0Wd0",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": "Create movie (you need to replace the token received from Login request)\n\nThis action is only permited to admin users.\n\nYou can test it with: \nuser: jeovanni.jahm@gmail.com\nrole: guest\npass: 123456\n\nThe request will failed.\n\nA new entry is added in the log table.\n"
+			},
+			"response": []
+		},
+		{
+			"name": "delete movie",
+			"request": {
+				"url": {
+					"raw": "http://localhost/movie_rental/api/movies/42?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTU3NTUyMDM1NywiZXhwIjoxNTc1NTIzOTU3LCJuYmYiOjE1NzU1MjAzNTcsImp0aSI6Ink2UDZTTUhjaDlZSjZ2WHEiLCJzdWIiOjIsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.C0zPuTGqL9EJ2LeV_ce5wNjxd_GldGKBdHj7VYJU084",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"movie_rental",
+						"api",
+						"movies",
+						"42"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTU3NTUyMDM1NywiZXhwIjoxNTc1NTIzOTU3LCJuYmYiOjE1NzU1MjAzNTcsImp0aSI6Ink2UDZTTUhjaDlZSjZ2WHEiLCJzdWIiOjIsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.C0zPuTGqL9EJ2LeV_ce5wNjxd_GldGKBdHj7VYJU084",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTU3NTQ5MTAwMywiZXhwIjoxNTc1NDk0NjAzLCJuYmYiOjE1NzU0OTEwMDMsImp0aSI6IkE5RGVFWXhuTzI1dGR5cEMiLCJzdWIiOjIsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.-rfYj1WHnpY5hI98m-A-aeoPZmC3BSqmtHu69Wj622c",
+							"description": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"description": "You need to change the token from the last login done.\n\nif the movie doesn't exist, please check any other id and change it in the URL"
+			},
+			"response": []
+		},
+		{
+			"name": "purchase a movie",
+			"request": {
+				"url": "http://localhost/movie_rental/api/movies/purchase",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "movie_id",
+							"value": "42",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "amount",
+							"value": "2",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTU3NTUzMjQ5NywiZXhwIjoxNTc1NTM2MDk3LCJuYmYiOjE1NzU1MzI0OTcsImp0aSI6Ilg4OGZPV0ZldXhjdzRScGIiLCJzdWIiOjIsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.dh7yr2aV9pdagKhWLi5fjJpOns_moAjEYLjSgUbwRs4",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": "You need to change the token, taking the token got from the last login.\n\nYou will see the stock of the movie choosen decrease by the same amount of the purchase.\n\n\nA new entry is added in the log table."
+			},
+			"response": []
+		},
+		{
+			"name": "rental a movie",
+			"request": {
+				"url": "http://localhost/movie_rental/api/movies/rental",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "movie_id",
+							"value": "41",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL21vdmllX3JlbnRhbFwvYXBpXC9sb2dpbiIsImlhdCI6MTU3NTYxNjk2NSwiZXhwIjoxNTc1NjIwNTY1LCJuYmYiOjE1NzU2MTY5NjUsImp0aSI6InRSOWNyczlVQ3VOMzVDbGIiLCJzdWIiOjIsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.z0VIfXf3iSJD0r9yvo_W_XWfor--Yku4jspAwHy2ZMs",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "deadline",
+							"value": "2019-12-24",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": "You need to change the token, taking the token got from the last login.\n\nYou will see the stock of the movie decrease by one.\n\nA new entry is added in the log table."
+			},
+			"response": []
+		},
+		{
+			"name": "return a movie",
+			"request": {
+				"url": "http://localhost/movie_rental/api/movies/rentalReturn",
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTU3NTQ4MjY2MSwiZXhwIjoxNTc1NDg2MjYxLCJuYmYiOjE1NzU0ODI2NjEsImp0aSI6IkVla0M0WlpTejBIWTduMXIiLCJzdWIiOjIsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.-I1t_zysbV-VrYYmxn5XAVRht0zLW-q1EKHajfL8BSo",
+						"description": ""
+					},
+					{
+						"key": "rental_id",
+						"value": "1",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTU3NTUzMjQ5NywiZXhwIjoxNTc1NTM2MDk3LCJuYmYiOjE1NzU1MzI0OTcsImp0aSI6Ilg4OGZPV0ZldXhjdzRScGIiLCJzdWIiOjIsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.dh7yr2aV9pdagKhWLi5fjJpOns_moAjEYLjSgUbwRs4",
+							"description": ""
+						},
+						{
+							"key": "rental_id",
+							"value": "5",
+							"description": ""
+						}
+					]
+				},
+				"description": "You need to change the token, taking the token got from the last login (admin user).\n\nYou can change de rental_id by the last rental done, this increase the stock of the movie.\n\nThis transaction is allowed only by admin role."
+			},
+			"response": []
+		},
+		{
+			"name": "Like a movie",
+			"request": {
+				"url": "http://localhost/movie_rental/api/movies/like",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "movie_id",
+							"value": "41",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL21vdmllX3JlbnRhbFwvYXBpXC9sb2dpbiIsImlhdCI6MTU3NTYxNjk2NSwiZXhwIjoxNTc1NjIwNTY1LCJuYmYiOjE1NzU2MTY5NjUsImp0aSI6InRSOWNyczlVQ3VOMzVDbGIiLCJzdWIiOjIsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.z0VIfXf3iSJD0r9yvo_W_XWfor--Yku4jspAwHy2ZMs",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": "You need to change the token, taking the token got from the last login.\n\nIf the user already liked the movie, you will see a message with that information.\n\nYou can choose another movie_id."
+			},
+			"response": []
+		},
+		{
+			"name": "change role to an user",
+			"request": {
+				"url": "http://localhost/movie_rental/api/user/changeRole",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTU3NTUyMDM1NywiZXhwIjoxNTc1NTIzOTU3LCJuYmYiOjE1NzU1MjAzNTcsImp0aSI6Ink2UDZTTUhjaDlZSjZ2WHEiLCJzdWIiOjIsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.C0zPuTGqL9EJ2LeV_ce5wNjxd_GldGKBdHj7VYJU084",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "id",
+							"value": "1",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "role",
+							"value": "admin",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": "You need to change the token, taking the token got from the last login.\n\nThe user needs to have admin role to do this action.\nYou can change the role to 'guest' and change the id(user)"
+			},
+			"response": []
+		},
+		{
+			"name": "search by name",
+			"request": {
+				"url": {
+					"raw": "http://localhost/movie_rental/api/movies/findByname?name=end",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"movie_rental",
+						"api",
+						"movies",
+						"findByname"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "end",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTU3NTQ5NDgxNiwiZXhwIjoxNTc1NDk4NDE2LCJuYmYiOjE1NzU0OTQ4MTYsImp0aSI6IkVGTWdYSzJUSWdaVzRJODMiLCJzdWIiOjIsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.JqqhVZDUax70_KL1PWS-W0YzW34GxRzfm1_KqNeDco8",
+							"description": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "movie_id",
+							"value": "6",
+							"description": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "deadline",
+							"value": "2019-12-09",
+							"description": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"description": "you can change the 'name' parameter."
+			},
+			"response": []
+		},
+		{
+			"name": "Index movie (without authentication)",
+			"request": {
+				"url": "http://localhost/movie_rental/api/movies",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "you can see the movies, pagination is set to show only 3 movies per page."
+			},
+			"response": []
+		}
+	]
+}
