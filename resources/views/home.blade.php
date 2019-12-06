@@ -27,7 +27,7 @@
 </div>
 @endsection
 <script>
-    document.onload = function(){
+    window.onload = function(){
         localStorage.setItem('user-token', document.getElementById('token-user').value);
     }
 </script>

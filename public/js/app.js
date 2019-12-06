@@ -1925,8 +1925,7 @@ __webpack_require__.r(__webpack_exports__);
         sale_price: '',
         availability: '',
         monetary_penalty: '',
-        image: '',
-        token: localStorage.getItem('user-token')
+        image: ''
       }
     };
   },
@@ -1935,6 +1934,7 @@ __webpack_require__.r(__webpack_exports__);
     postCreateMovie: function postCreateMovie(api_url) {
       api_url = "/movie_rental/api/movies";
       this.movie.image = this.previewImage;
+      this.movie.token = localStorage.getItem('user-token');
       fetch(api_url, {
         method: 'post',
         body: JSON.stringify(this.movie),
@@ -37833,7 +37833,9 @@ var render = function() {
               _vm._v(_vm._s(movie.title))
             ]),
             _vm._v(" "),
-            _c("img", { attrs: { src: "" + _vm.imgPreUrl(movie.id) } }),
+            _c("img", {
+              attrs: { src: "" + _vm.imgPreUrl(movie.id), height: "250" }
+            }),
             _vm._v(" "),
             _c("p", { staticClass: "card-text" }, [
               _vm._v(_vm._s(movie.description))

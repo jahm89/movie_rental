@@ -53,8 +53,7 @@
                     sale_price: '',
                     availability: '',
                     monetary_penalty: '',
-                    image: '',
-                    token: localStorage.getItem('user-token')
+                    image: ''
                 }
             };
         },
@@ -66,6 +65,7 @@
             postCreateMovie(api_url) {
                 api_url = "/movie_rental/api/movies";
                 this.movie.image = this.previewImage;
+                this.movie.token = localStorage.getItem('user-token')
                 fetch(api_url, {
                     method: 'post',
                     body: JSON.stringify(this.movie),

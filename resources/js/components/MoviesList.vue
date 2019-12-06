@@ -17,7 +17,7 @@
         <div class="card mb-2" v-for="movie in movies" v-bind:key="movie.id">
             <div class="card-body ">
                 <h4 class="card-title">{{ movie.title }}</h4>
-                <img v-bind:src="`${imgPreUrl(movie.id)}`">
+                <img v-bind:src="`${imgPreUrl(movie.id)}`" height="250">
                 <p class="card-text">{{ movie.description }}</p>
                 <p class="card-text">Rental Price: {{ movie.rental_price }}</p>
                 <p class="card-text">Sale Price: {{ movie.sale_price }}</p>

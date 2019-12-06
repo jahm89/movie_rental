@@ -74,10 +74,11 @@ class MovieController extends Controller
             }
 
             $images = [];
-            $movies = $movies->paginate(5);
+            $movies = $movies->paginate(3);
 
             foreach ($movies as $key => $value) {
-                $img = Image::find(['movie_id' => $value->id])->first();
+
+                $img = Image::where('movie_id', $value->id)->first();
 
                 if ($img) {
                     $images[$value->id] = $img->name;   
