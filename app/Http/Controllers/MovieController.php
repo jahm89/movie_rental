@@ -40,12 +40,6 @@ class MovieController extends Controller
             if(array_key_exists('availability', $request->all())){
                 $availability = $request->all()['availability'];
             }
-            if(array_key_exists('page', $request->all())){
-                $page = $request->all()['page'] - 1;
-            }
-            if(array_key_exists('per_page', $request->all())){
-                $per_page = $request->all()['per_page'];
-            }
 
             //Add a switch to have more flexibility to sort for any parameter
             switch ($sort) {
@@ -56,11 +50,6 @@ class MovieController extends Controller
                 default:
                 $movies =  Movie::orderBy('title', 'asc');
                 break;
-            }
-
-            //Adding pagination
-            if($page !== null && $per_page != null){
-                $movies->skip($page*$per_page)->take($per_page);
             }
 
             //Check if the parameter availability exists (only admin can use this filter)
@@ -84,9 +73,21 @@ class MovieController extends Controller
                 $movies->where('availability', 1);
             }
 
+            $images = [];
+            $movies = $movies->paginate(5);
+
+            foreach ($movies as $key => $value) {
+                $img = Image::find(['movie_id' => $value->id])->first();
+
+                if ($img) {
+                    $images[$value->id] = $img->name;   
+                }
+            }
+
             return response()->json([
                         'success' => true,
-                        'movies' => $movies->get()
+                        'data' => $movies,
+                        'images' => $images
                     ], 200);
 
         }catch(JWTException $e){
@@ -156,7 +157,7 @@ class MovieController extends Controller
             'sale_price' => 'required', 
             'availability' => 'required', 
             'monetary_penalty' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg'
+            'image' => 'required'
         ]);
 
     	$movie = new Movie();
@@ -171,9 +172,21 @@ class MovieController extends Controller
 
     	if ($movie->save())
         {
+            $image = $request->image;
+
+            if (preg_match('/^data:image\/(\w+);base64,/', $image)) {
+                $data = substr($image, strpos($image, ',') + 1);
+
+                $data = base64_decode($data);
+                $imageName = time().'.png';
+                $url = public_path('images')."/".$imageName;
+                file_put_contents($url, $data);
+            }else{
+                $imageName = time().'.'.request()->image->getClientOriginalExtension();
+                $request->image->move(public_path('images'), $imageName);
+            } 
+              
             //Upload image to images folder
-            $imageName = time().'.'.request()->image->getClientOriginalExtension();
-            $request->image->move(public_path('images'), $imageName);
 
             //Save image in database (it can have more than one image)
             //To this project, it only will contain one image
@@ -591,4 +604,5 @@ class MovieController extends Controller
             return false;
 
     }
+
 }
