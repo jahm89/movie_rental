@@ -75,7 +75,9 @@
                 })
                     .then(response => response.json())
                     .then(response => {
-                        
+                        if(response.success == true){
+                            alert("Movie saved successfully!");
+                        }
                     })
                     .catch(err => console.log(err));
             },

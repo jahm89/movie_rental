@@ -10,7 +10,7 @@
 		{
 			"name": "register an user",
 			"request": {
-				"url": "http://127.0.0.1/movie_rental/api/register",
+				"url": "http://localhost/movie_rental/api/register",
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -18,25 +18,25 @@
 					"formdata": [
 						{
 							"key": "name",
-							"value": "Alex Morales",
+							"value": "Jose Jose",
 							"description": "",
 							"type": "text"
 						},
 						{
 							"key": "email",
-							"value": "jeovanni.jahm5@gmail.com",
+							"value": "jose.jose@gmail.com",
 							"description": "",
 							"type": "text"
 						},
 						{
 							"key": "password",
-							"value": "123456",
+							"value": "12345678",
 							"description": "",
 							"type": "text"
 						}
 					]
 				},
-				"description": "The email needs to be unique.\n\nIf already exist an user with the email you will a message.\n\nAfter to register you need to verify to the user, using the numeral 1 in the NOTES section of the readme file.\n\nThat step is necessary before to login with the new user created.\n"
+				"description": "The email needs to be unique.\n\nIf already exist an user with the email you will a message.\n\nenter in the browser: \nhttp://localhost/movie_rental/api/verifyUser, then login using the credentials, then click in the button to send the email.\n\nAfter to register you need to verify to the user, using the numeral 1 in the NOTES section of the readme file.\n\nThat step is necessary before to login with the new user created.\n"
 			},
 			"response": []
 		},
@@ -58,13 +58,13 @@
 						},
 						{
 							"key": "email",
-							"value": "alex.jahm@gmail.com",
+							"value": "jeovanni.jahm@gmail.com",
 							"description": "",
 							"type": "text"
 						},
 						{
 							"key": "password",
-							"value": "123456",
+							"value": "12345678",
 							"description": "",
 							"type": "text"
 						}
@@ -110,7 +110,7 @@
 						},
 						{
 							"key": "sale_price",
-							"value": "20",
+							"value": "20.00",
 							"description": ""
 						},
 						{
@@ -120,31 +120,31 @@
 						},
 						{
 							"key": "monetary_penalty",
-							"value": "3",
+							"value": "3.00",
 							"description": ""
 						},
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL21vdmllX3JlbnRhbFwvYXBpXC9sb2dpbiIsImlhdCI6MTU3NTYxMjYzMywiZXhwIjoxNTc1NjE2MjMzLCJuYmYiOjE1NzU2MTI2MzMsImp0aSI6IkszcFBWSHZLVmJZRGNQYnAiLCJzdWIiOjIsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.8eSIeVo9pe4mEtz1BKd7DXkrA9Lk1seDNX_3IBe0Wd0",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL21vdmllX3JlbnRhbFwvYXBpXC9sb2dpbiIsImlhdCI6MTU3NTY5NjMxNywiZXhwIjoxNTc1Njk5OTE3LCJuYmYiOjE1NzU2OTYzMTcsImp0aSI6IlkyaFdwdWhnOHM3MjY5MDkiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.nt7uoCnPeOBGa3qXylAgIjDBQypx8JxDy1IKBDBQlPM",
 							"description": "",
 							"type": "text"
 						},
 						{
 							"key": "image",
-							"value": "",
 							"description": "",
-							"type": "file"
+							"type": "file",
+							"src": "images.jpeg"
 						}
 					]
 				},
-				"description": "Create movie (you need to replace the token received from Login request)\n\nThis action is only permited to admin users.\n\nYou can test it with: \nuser: jeovanni.jahm@gmail.com\nrole: guest\npass: 123456\n\nThe request will failed\n"
+				"description": "Create movie (you need to replace the token received from Login request)\n\nThis action is only permited to admin users.\n\nYou can test it with: \nuser: jose.jose@gmail.com\nrole: guest\npass: 12345678\n\nThe request will failed\n"
 			},
 			"response": []
 		},
 		{
 			"name": "modify a movie",
 			"request": {
-				"url": "http://localhost/movie_rental/api/movies",
+				"url": "http://localhost/movie_rental/api/movies/update/1",
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -152,17 +152,17 @@
 					"formdata": [
 						{
 							"key": "name",
-							"value": "It Chapter Two C",
+							"value": "Batman Begins",
 							"description": ""
 						},
 						{
 							"key": "title",
-							"value": "It Chapter Two C",
+							"value": "Batman Begins",
 							"description": ""
 						},
 						{
 							"key": "description",
-							"value": "Now adults played by the likes of James McAvoy, Jessica Chastain and Bill Hader, The Losers Club returns to Derry,",
+							"value": "Batman Begins is a DC movie..",
 							"description": ""
 						},
 						{
@@ -192,13 +192,19 @@
 						},
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL21vdmllX3JlbnRhbFwvYXBpXC9sb2dpbiIsImlhdCI6MTU3NTYxMjYzMywiZXhwIjoxNTc1NjE2MjMzLCJuYmYiOjE1NzU2MTI2MzMsImp0aSI6IkszcFBWSHZLVmJZRGNQYnAiLCJzdWIiOjIsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.8eSIeVo9pe4mEtz1BKd7DXkrA9Lk1seDNX_3IBe0Wd0",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL21vdmllX3JlbnRhbFwvYXBpXC9sb2dpbiIsImlhdCI6MTU3NTY5MjY5MSwiZXhwIjoxNTc1Njk2MjkxLCJuYmYiOjE1NzU2OTI2OTEsImp0aSI6InNMN2RRVjZxUFVYbGptM1kiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.Eq84lqAZJqQExax8mxxNMjwV0AjzZbBxfrvkQ9tTx38",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "_method",
+							"value": "PUT",
 							"description": "",
 							"type": "text"
 						}
 					]
 				},
-				"description": "Create movie (you need to replace the token received from Login request)\n\nThis action is only permited to admin users.\n\nYou can test it with: \nuser: jeovanni.jahm@gmail.com\nrole: guest\npass: 123456\n\nThe request will failed.\n\nA new entry is added in the log table.\n"
+				"description": "Create movie (you need to replace the token received from Login request)\n\nThis action is only permited to admin users.\n\nYou can test it with: \nuser: jose.jose@gmail.com\nrole: guest\npass: 12345678\n\nThe request will failed.\n\nA new entry is added in the log table.\n"
 			},
 			"response": []
 		},
@@ -206,7 +212,7 @@
 			"name": "delete movie",
 			"request": {
 				"url": {
-					"raw": "http://localhost/movie_rental/api/movies/42?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTU3NTUyMDM1NywiZXhwIjoxNTc1NTIzOTU3LCJuYmYiOjE1NzU1MjAzNTcsImp0aSI6Ink2UDZTTUhjaDlZSjZ2WHEiLCJzdWIiOjIsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.C0zPuTGqL9EJ2LeV_ce5wNjxd_GldGKBdHj7VYJU084",
+					"raw": "http://localhost/movie_rental/api/movies/delete/1?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL21vdmllX3JlbnRhbFwvYXBpXC9sb2dpbiIsImlhdCI6MTU3NTY5MjY5MSwiZXhwIjoxNTc1Njk2MjkxLCJuYmYiOjE1NzU2OTI2OTEsImp0aSI6InNMN2RRVjZxUFVYbGptM1kiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.Eq84lqAZJqQExax8mxxNMjwV0AjzZbBxfrvkQ9tTx38",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -215,12 +221,13 @@
 						"movie_rental",
 						"api",
 						"movies",
-						"42"
+						"delete",
+						"1"
 					],
 					"query": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTU3NTUyMDM1NywiZXhwIjoxNTc1NTIzOTU3LCJuYmYiOjE1NzU1MjAzNTcsImp0aSI6Ink2UDZTTUhjaDlZSjZ2WHEiLCJzdWIiOjIsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.C0zPuTGqL9EJ2LeV_ce5wNjxd_GldGKBdHj7VYJU084",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL21vdmllX3JlbnRhbFwvYXBpXC9sb2dpbiIsImlhdCI6MTU3NTY5MjY5MSwiZXhwIjoxNTc1Njk2MjkxLCJuYmYiOjE1NzU2OTI2OTEsImp0aSI6InNMN2RRVjZxUFVYbGptM1kiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.Eq84lqAZJqQExax8mxxNMjwV0AjzZbBxfrvkQ9tTx38",
 							"equals": true,
 							"description": ""
 						}
@@ -241,7 +248,7 @@
 						}
 					]
 				},
-				"description": "You need to change the token from the last login done.\n\nif the movie doesn't exist, please check any other id and change it in the URL"
+				"description": "You need to change the token from the last login done with an admin user.\n\nif the movie doesn't exist, please check any other id and change it in the URL"
 			},
 			"response": []
 		},
@@ -256,7 +263,7 @@
 					"formdata": [
 						{
 							"key": "movie_id",
-							"value": "42",
+							"value": "2",
 							"description": "",
 							"type": "text"
 						},
@@ -268,7 +275,7 @@
 						},
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTU3NTUzMjQ5NywiZXhwIjoxNTc1NTM2MDk3LCJuYmYiOjE1NzU1MzI0OTcsImp0aSI6Ilg4OGZPV0ZldXhjdzRScGIiLCJzdWIiOjIsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.dh7yr2aV9pdagKhWLi5fjJpOns_moAjEYLjSgUbwRs4",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL21vdmllX3JlbnRhbFwvYXBpXC9sb2dpbiIsImlhdCI6MTU3NTY5MjY5MSwiZXhwIjoxNTc1Njk2MjkxLCJuYmYiOjE1NzU2OTI2OTEsImp0aSI6InNMN2RRVjZxUFVYbGptM1kiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.Eq84lqAZJqQExax8mxxNMjwV0AjzZbBxfrvkQ9tTx38",
 							"description": "",
 							"type": "text"
 						}
@@ -289,19 +296,19 @@
 					"formdata": [
 						{
 							"key": "movie_id",
-							"value": "41",
+							"value": "2",
 							"description": "",
 							"type": "text"
 						},
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL21vdmllX3JlbnRhbFwvYXBpXC9sb2dpbiIsImlhdCI6MTU3NTYxNjk2NSwiZXhwIjoxNTc1NjIwNTY1LCJuYmYiOjE1NzU2MTY5NjUsImp0aSI6InRSOWNyczlVQ3VOMzVDbGIiLCJzdWIiOjIsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.z0VIfXf3iSJD0r9yvo_W_XWfor--Yku4jspAwHy2ZMs",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL21vdmllX3JlbnRhbFwvYXBpXC9sb2dpbiIsImlhdCI6MTU3NTY5MjY5MSwiZXhwIjoxNTc1Njk2MjkxLCJuYmYiOjE1NzU2OTI2OTEsImp0aSI6InNMN2RRVjZxUFVYbGptM1kiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.Eq84lqAZJqQExax8mxxNMjwV0AjzZbBxfrvkQ9tTx38",
 							"description": "",
 							"type": "text"
 						},
 						{
 							"key": "deadline",
-							"value": "2019-12-24",
+							"value": "2019-12-02",
 							"description": "",
 							"type": "text"
 						}
@@ -343,7 +350,7 @@
 						}
 					]
 				},
-				"description": "You need to change the token, taking the token got from the last login (admin user).\n\nYou can change de rental_id by the last rental done, this increase the stock of the movie.\n\nThis transaction is allowed only by admin role."
+				"description": "You need to change the token, taking the token got from the last login (admin user).\n\nYou can change de rental_id by the last rental done, this increase the stock of the movie.\n\nIf the return date in greater than return deadline the moneraty_penalty of the movie is saved in penalty field of the rental record.\n\nThis transaction is allowed only by admin role."
 			},
 			"response": []
 		},
@@ -358,13 +365,13 @@
 					"formdata": [
 						{
 							"key": "movie_id",
-							"value": "41",
+							"value": "1",
 							"description": "",
 							"type": "text"
 						},
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL21vdmllX3JlbnRhbFwvYXBpXC9sb2dpbiIsImlhdCI6MTU3NTYxNjk2NSwiZXhwIjoxNTc1NjIwNTY1LCJuYmYiOjE1NzU2MTY5NjUsImp0aSI6InRSOWNyczlVQ3VOMzVDbGIiLCJzdWIiOjIsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.z0VIfXf3iSJD0r9yvo_W_XWfor--Yku4jspAwHy2ZMs",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL21vdmllX3JlbnRhbFwvYXBpXC9sb2dpbiIsImlhdCI6MTU3NTY5MjQyMiwiZXhwIjoxNTc1Njk2MDIyLCJuYmYiOjE1NzU2OTI0MjIsImp0aSI6IjVYTnQ5WTNWQjB4VG9HNnoiLCJzdWIiOjIsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.NvtIyJweJhwPV7tmA2klGXgHVyX3dDHEtSY1cI2u7ic",
 							"description": "",
 							"type": "text"
 						}
@@ -385,19 +392,19 @@
 					"formdata": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTU3NTUyMDM1NywiZXhwIjoxNTc1NTIzOTU3LCJuYmYiOjE1NzU1MjAzNTcsImp0aSI6Ink2UDZTTUhjaDlZSjZ2WHEiLCJzdWIiOjIsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.C0zPuTGqL9EJ2LeV_ce5wNjxd_GldGKBdHj7VYJU084",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL21vdmllX3JlbnRhbFwvYXBpXC9sb2dpbiIsImlhdCI6MTU3NTY5NjMxNywiZXhwIjoxNTc1Njk5OTE3LCJuYmYiOjE1NzU2OTYzMTcsImp0aSI6IlkyaFdwdWhnOHM3MjY5MDkiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.nt7uoCnPeOBGa3qXylAgIjDBQypx8JxDy1IKBDBQlPM",
 							"description": "",
 							"type": "text"
 						},
 						{
 							"key": "id",
-							"value": "1",
+							"value": "2",
 							"description": "",
 							"type": "text"
 						},
 						{
 							"key": "role",
-							"value": "admin",
+							"value": "guest",
 							"description": "",
 							"type": "text"
 						}
@@ -411,7 +418,7 @@
 			"name": "search by name",
 			"request": {
 				"url": {
-					"raw": "http://localhost/movie_rental/api/movies/findByname?name=end",
+					"raw": "http://localhost/movie_rental/api/movies/findByname?name=eNd",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -425,7 +432,7 @@
 					"query": [
 						{
 							"key": "name",
-							"value": "end",
+							"value": "eNd",
 							"equals": true,
 							"description": ""
 						}
@@ -472,6 +479,43 @@
 				"header": [],
 				"body": {},
 				"description": "you can see the movies, pagination is set to show only 3 movies per page."
+			},
+			"response": []
+		},
+		{
+			"name": "search movies by availability",
+			"request": {
+				"url": {
+					"raw": "http://localhost/movie_rental/api/movies?availability=1&token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL21vdmllX3JlbnRhbFwvYXBpXC9sb2dpbiIsImlhdCI6MTU3NTY5NjgyMCwiZXhwIjoxNTc1NzAwNDIwLCJuYmYiOjE1NzU2OTY4MjAsImp0aSI6Imd3MWpjVHRoTnA5b0lHVDkiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.XnMevXingFv98u31r7g59kDz00GaLJuC80409i8H5d4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"movie_rental",
+						"api",
+						"movies"
+					],
+					"query": [
+						{
+							"key": "availability",
+							"value": "1",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL21vdmllX3JlbnRhbFwvYXBpXC9sb2dpbiIsImlhdCI6MTU3NTY5NjgyMCwiZXhwIjoxNTc1NzAwNDIwLCJuYmYiOjE1NzU2OTY4MjAsImp0aSI6Imd3MWpjVHRoTnA5b0lHVDkiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.XnMevXingFv98u31r7g59kDz00GaLJuC80409i8H5d4",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "You need to change the token from the last login admin user \n\n1: available\n0: not available\n2: all"
 			},
 			"response": []
 		}

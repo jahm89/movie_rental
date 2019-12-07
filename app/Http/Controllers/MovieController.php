@@ -20,7 +20,7 @@ class MovieController extends Controller
      */
     public function __construct()
     {
-    	$this->middleware('auth.role:admin', ['only' => ['store', 'update', 'destroy', 'rental_return']]);
+    	$this->middleware('auth.role:admin', ['only' => ['store', 'update', 'destroy', 'rentalReturn']]);
     }
 
     /**
@@ -126,7 +126,7 @@ class MovieController extends Controller
         $name = '';
 
         if($request->all()['name']){
-            $name = $request->all()['name'];
+            $name = strtoupper($request->all()['name']);
         }
 
         $movie = Movie::where('name', 'like', '%' . $name . '%')->get();
@@ -164,7 +164,7 @@ class MovieController extends Controller
     	$movie = new Movie();
     	$movie->title = $request->title;
     	$movie->description = $request->description;
-    	$movie->name = $request->name;
+    	$movie->name = strtoupper($request->name);
     	$movie->stock = $request->stock;
     	$movie->rental_price = $request->rental_price;
     	$movie->sale_price = $request->sale_price;
@@ -243,7 +243,13 @@ class MovieController extends Controller
             $text .= "Rental price: ".$movie->rental_price.", ";
             $text .= "Sale price: ".$movie->sale_price;
 
-            $updated = $movie->fill($request->all())->save();
+            $data = $request->all();
+            
+            if (array_key_exists('name', $data)) {
+                $data['name'] = strtoupper($data['name']);
+            }
+
+            $updated = $movie->fill($data)->save();
 
             if ($updated) {
 
