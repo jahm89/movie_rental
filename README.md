@@ -6,7 +6,7 @@
 
 2. You can use any of these users to access to the application (both, in your local or in heroku):
    user: jeovanni.jahm@gmail.com pass: 12345678  role: admin
-   user: alex.morales@gmail.com pass: 12345678  role: guest
+   user: alex.morales@gmail.com pass: 123456  role: guest
 
 3. You can find in the root path the file: TestApplaudoStudio.postman_collection.json to run test 
    all the APIs in POSTMAN.
