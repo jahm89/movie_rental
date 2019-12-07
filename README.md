@@ -11,6 +11,9 @@
 3. You can find in the root path the file: TestApplaudoStudio.postman_collection.json to run test 
    all the APIs in POSTMAN.
 
+4. Due to Heroku, after some time the uploaded movies are deleted, this is an aclaration.
+   (I didn't know that before to upload the images to a local folder)
+   
 # Sections:
 1. How to install in your local
 2. How test in Heroku
