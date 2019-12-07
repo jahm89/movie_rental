@@ -301,7 +301,7 @@ class MovieController extends Controller
             if (!$movie) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Sorry, movie with id ' . $id . ' cannot be found.'
+                    'message' => 'Sorry, movie cannot be found.'
                 ], 400);
             }
 
@@ -311,7 +311,7 @@ class MovieController extends Controller
             if ($likeMovie !== null) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Sorry, you already have liked this movie with id ' . $id . '.'
+                    'message' => 'Sorry, you already have liked this movie.'
                 ], 400);
             }
 

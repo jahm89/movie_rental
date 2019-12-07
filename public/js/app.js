@@ -1932,6 +1932,8 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {},
   methods: {
     postCreateMovie: function postCreateMovie(api_url) {
+      var _this = this;
+
       api_url = "/movie_rental/api/movies";
       this.movie.image = this.previewImage;
       this.movie.token = localStorage.getItem('user-token');
@@ -1946,20 +1948,22 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         if (response.success == true) {
           alert("Movie saved successfully!");
+
+          _this.$root.$emit('movie_list_component');
         }
       })["catch"](function (err) {
         return console.log(err);
       });
     },
     uploadImage: function uploadImage(e) {
-      var _this = this;
+      var _this2 = this;
 
       var image = e.target.files[0];
       var reader = new FileReader();
       reader.readAsDataURL(image);
 
       reader.onload = function (e) {
-        _this.previewImage = e.target.result;
+        _this2.previewImage = e.target.result;
       };
     }
   }
@@ -2008,7 +2012,11 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['role'],
   data: function data() {
     return {
       movies: [],
@@ -2024,23 +2032,35 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         sale_price: '',
         availability: '',
         monetary_penalty: ''
+      },
+      like: {
+        movie_id: '',
+        token: ''
       }
     };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.$root.$on('movie_list_component', function () {
+      // your code goes here
+      _this.getMovies();
+    });
   },
   created: function created() {
     this.getMovies();
   },
   methods: {
     getMovies: function getMovies(api_url) {
-      var _this = this;
+      var _this2 = this;
 
       var vm = this;
       api_url = api_url || '/movie_rental/api/movies';
       fetch(api_url).then(function (response) {
         return response.json();
       }).then(function (response) {
-        _this.movies = response.data.data;
-        _this.images = response.images;
+        _this2.movies = response.data.data;
+        _this2.images = response.images;
         vm.paginator(response.data.current_page, response.data.last_page, response.data.next_page_url, response.data.prev_page_url);
       })["catch"](function (err) {
         return console.log(err);
@@ -2056,6 +2076,75 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     },
     imgPreUrl: function imgPreUrl(id) {
       if (_typeof(this.images[id]) !== undefined) return "/movie_rental/images/" + this.images[id];else return "";
+    },
+    postLike: function postLike(id) {
+      var _this3 = this;
+
+      var token = localStorage.getItem('user-token');
+
+      if (token == undefined || token == '') {
+        alert('You need to login to do this!');
+        return false;
+      }
+
+      var api_url = '/movie_rental/api/movies/like';
+      this.like.movie_id = id;
+      this.like.token = token;
+      fetch(api_url, {
+        method: 'post',
+        body: JSON.stringify(this.like),
+        headers: {
+          'content-type': 'application/json'
+        }
+      }).then(function (response) {
+        return response.json();
+      }).then(function (response) {
+        //console.log(response);
+        if (response.success == true) {
+          _this3.movies.map(function (item) {
+            if (item.id == id) {
+              item.likes++;
+            }
+
+            ;
+          });
+        } else {
+          alert(response.message);
+        }
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    },
+    deleteDelete: function deleteDelete(id) {
+      var _this4 = this;
+
+      var api_url = '/movie_rental/api/movies/delete/' + id;
+      var data = {
+        token: localStorage.getItem('user-token')
+      };
+      fetch(api_url, {
+        method: 'delete',
+        body: JSON.stringify(data),
+        headers: {
+          'content-type': 'application/json'
+        }
+      }).then(function (response) {
+        return response.json();
+      }).then(function (response) {
+        console.log(response);
+
+        if (response.success == true) {
+          _this4.movies.map(function (item, index) {
+            if (item.id == id) {
+              _this4.movies.splice(index, 1);
+            }
+          });
+        } else {
+          alert("The movie can't be delete, it would contain records associated.");
+        }
+      })["catch"](function (err) {
+        return console.log(err);
+      });
     }
   }
 });
@@ -37833,6 +37922,22 @@ var render = function() {
       _vm._l(_vm.movies, function(movie) {
         return _c("div", { key: movie.id, staticClass: "card mb-2" }, [
           _c("div", { staticClass: "card-body " }, [
+            _vm.role == "admin"
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-danger",
+                    staticStyle: { float: "right" },
+                    on: {
+                      click: function($event) {
+                        return _vm.deleteDelete(movie.id)
+                      }
+                    }
+                  },
+                  [_vm._v("Delete movie")]
+                )
+              : _vm._e(),
+            _vm._v(" "),
             _c("h4", { staticClass: "card-title" }, [
               _vm._v(_vm._s(movie.title))
             ]),
@@ -37854,7 +37959,27 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("p", { staticClass: "card-text" }, [
-              _vm._v("Likes: " + _vm._s(movie.likes))
+              _c("span", [
+                _c(
+                  "a",
+                  {
+                    staticStyle: { "font-size": "large" },
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        return _vm.postLike(movie.id)
+                      }
+                    }
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "fa fa-thumbs-up",
+                      attrs: { "aria-hidden": "true" }
+                    })
+                  ]
+                )
+              ]),
+              _vm._v(" " + _vm._s(movie.likes) + "\n            ")
             ])
           ])
         ])

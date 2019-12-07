@@ -77,6 +77,7 @@
                     .then(response => {
                         if(response.success == true){
                             alert("Movie saved successfully!");
+                            this.$root.$emit('movie_list_component');
                         }
                     })
                     .catch(err => console.log(err));

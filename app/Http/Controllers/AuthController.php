@@ -113,16 +113,16 @@ class AuthController extends Controller
     public function changeRole(Request $request)
     {
         $request->validate([
-            'id' => 'required', 
+            'email' => 'required', 
             'role' => 'required',
         ]);
 
-        $user = User::find($request->id);
+        $user = User::where('email', $request->email)->first();
 
         if (!$user) {
             return response()->json([
                 'success' => false,
-                'message' => 'Sorry, user with id ' . $request->id . ' cannot be found.'
+                'message' => 'Sorry, user with email ' . $request->email . ' cannot be found.'
             ], 400);
         }
 

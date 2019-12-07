@@ -15,7 +15,7 @@
                         </div>
                     @endif
 
-                    <movies-list></movies-list>
+                    <movies-list role="{{ $role }}"></movies-list>
 
                     <?php if ($role == 'admin'): ?>
                         <new-movie></new-movie>
@@ -28,6 +28,11 @@
 @endsection
 <script>
     window.onload = function(){
-        localStorage.setItem('user-token', document.getElementById('token-user').value);
+        if(document.getElementById('token-user') == null){
+            localStorage.removeItem('user-token');
+        }
+        else{
+            localStorage.setItem('user-token', document.getElementById('token-user').value);
+        }
     }
 </script>

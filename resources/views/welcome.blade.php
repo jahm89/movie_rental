@@ -14,5 +14,15 @@
     <movies-list></movies-list>
 </div>
 <script src="{{ asset('js/app.js') }}"></script>
+<script>
+    window.onload = function(){
+        if(document.getElementById('token-user') == null){
+            localStorage.removeItem('user-token');
+        }
+        else{
+            localStorage.setItem('user-token', document.getElementById('token-user').value);
+        }
+    }
+</script>
 </body>
 </html>
