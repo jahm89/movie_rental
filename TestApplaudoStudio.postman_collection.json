@@ -43,7 +43,7 @@
 		{
 			"name": "Login",
 			"request": {
-				"url": "http://localhost/movie_rental/api/login",
+				"url": "https://stark-lowlands-94868.herokuapp.com/api/login",
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -77,7 +77,7 @@
 		{
 			"name": "add a movie",
 			"request": {
-				"url": "http://localhost/movie_rental/api/movies",
+				"url": "https://stark-lowlands-94868.herokuapp.com/api/movies",
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -131,9 +131,9 @@
 						},
 						{
 							"key": "image",
+							"value": "",
 							"description": "",
-							"type": "file",
-							"src": "images.jpeg"
+							"type": "file"
 						}
 					]
 				},
@@ -144,7 +144,7 @@
 		{
 			"name": "modify a movie",
 			"request": {
-				"url": "http://localhost/movie_rental/api/movies/update/1",
+				"url": "https://stark-lowlands-94868.herokuapp.com/api/movies/update/1",
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -212,13 +212,14 @@
 			"name": "delete movie",
 			"request": {
 				"url": {
-					"raw": "http://localhost/movie_rental/api/movies/delete/1?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL21vdmllX3JlbnRhbFwvYXBpXC9sb2dpbiIsImlhdCI6MTU3NTY5MjY5MSwiZXhwIjoxNTc1Njk2MjkxLCJuYmYiOjE1NzU2OTI2OTEsImp0aSI6InNMN2RRVjZxUFVYbGptM1kiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.Eq84lqAZJqQExax8mxxNMjwV0AjzZbBxfrvkQ9tTx38",
-					"protocol": "http",
+					"raw": "https://stark-lowlands-94868.herokuapp.com/api/movies/delete/1?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL21vdmllX3JlbnRhbFwvYXBpXC9sb2dpbiIsImlhdCI6MTU3NTY5MjY5MSwiZXhwIjoxNTc1Njk2MjkxLCJuYmYiOjE1NzU2OTI2OTEsImp0aSI6InNMN2RRVjZxUFVYbGptM1kiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.Eq84lqAZJqQExax8mxxNMjwV0AjzZbBxfrvkQ9tTx38",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"stark-lowlands-94868",
+						"herokuapp",
+						"com"
 					],
 					"path": [
-						"movie_rental",
 						"api",
 						"movies",
 						"delete",
@@ -255,7 +256,7 @@
 		{
 			"name": "purchase a movie",
 			"request": {
-				"url": "http://localhost/movie_rental/api/movies/purchase",
+				"url": "https://stark-lowlands-94868.herokuapp.com/api/movies/purchase",
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -288,7 +289,7 @@
 		{
 			"name": "rental a movie",
 			"request": {
-				"url": "http://localhost/movie_rental/api/movies/rental",
+				"url": "https://stark-lowlands-94868.herokuapp.com/api/movies/rental",
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -321,7 +322,7 @@
 		{
 			"name": "return a movie",
 			"request": {
-				"url": "http://localhost/movie_rental/api/movies/rentalReturn",
+				"url": "https://stark-lowlands-94868.herokuapp.com/api/movies/rentalReturn",
 				"method": "POST",
 				"header": [
 					{
@@ -357,7 +358,7 @@
 		{
 			"name": "Like a movie",
 			"request": {
-				"url": "http://localhost/movie_rental/api/movies/like",
+				"url": "https://stark-lowlands-94868.herokuapp.com/api/movies/like",
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -384,7 +385,7 @@
 		{
 			"name": "change role to an user",
 			"request": {
-				"url": "http://localhost/movie_rental/api/user/changeRole",
+				"url": "https://stark-lowlands-94868.herokuapp.com/api/user/changeRole",
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -392,13 +393,13 @@
 					"formdata": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL21vdmllX3JlbnRhbFwvYXBpXC9sb2dpbiIsImlhdCI6MTU3NTY5NjMxNywiZXhwIjoxNTc1Njk5OTE3LCJuYmYiOjE1NzU2OTYzMTcsImp0aSI6IlkyaFdwdWhnOHM3MjY5MDkiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.nt7uoCnPeOBGa3qXylAgIjDBQypx8JxDy1IKBDBQlPM",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL21vdmllX3JlbnRhbFwvYXBpXC9sb2dpbiIsImlhdCI6MTU3NTczNDA4MSwiZXhwIjoxNTc1NzM3NjgxLCJuYmYiOjE1NzU3MzQwODEsImp0aSI6Ijh3M1AxdjJMSk1JSU92UmQiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.duJPMgoh2NUFWcevI6ypeEscCdcWXdNfqAYElz9cUJg",
 							"description": "",
 							"type": "text"
 						},
 						{
-							"key": "id",
-							"value": "2",
+							"key": "email",
+							"value": "roberto.hernandez@gmail.com",
 							"description": "",
 							"type": "text"
 						},
@@ -474,7 +475,7 @@
 		{
 			"name": "Index movie (without authentication)",
 			"request": {
-				"url": "http://localhost/movie_rental/api/movies",
+				"url": "https://stark-lowlands-94868.herokuapp.com/api/movies",
 				"method": "GET",
 				"header": [],
 				"body": {},
@@ -486,13 +487,14 @@
 			"name": "search movies by availability",
 			"request": {
 				"url": {
-					"raw": "http://localhost/movie_rental/api/movies?availability=1&token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL21vdmllX3JlbnRhbFwvYXBpXC9sb2dpbiIsImlhdCI6MTU3NTY5NjgyMCwiZXhwIjoxNTc1NzAwNDIwLCJuYmYiOjE1NzU2OTY4MjAsImp0aSI6Imd3MWpjVHRoTnA5b0lHVDkiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.XnMevXingFv98u31r7g59kDz00GaLJuC80409i8H5d4",
-					"protocol": "http",
+					"raw": "https://stark-lowlands-94868.herokuapp.com/api/movies?availability=1&token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL21vdmllX3JlbnRhbFwvYXBpXC9sb2dpbiIsImlhdCI6MTU3NTY5NjgyMCwiZXhwIjoxNTc1NzAwNDIwLCJuYmYiOjE1NzU2OTY4MjAsImp0aSI6Imd3MWpjVHRoTnA5b0lHVDkiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.XnMevXingFv98u31r7g59kDz00GaLJuC80409i8H5d4",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"stark-lowlands-94868",
+						"herokuapp",
+						"com"
 					],
 					"path": [
-						"movie_rental",
 						"api",
 						"movies"
 					],
