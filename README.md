@@ -54,7 +54,7 @@ b. Met the requirements in this link: https://laravel.com/docs/5.8/installation
    - Create a database called: movie_rental_2 (mysql or postgresql)
    - In the root path of the application run the command: php artisan migrate
 
-   Alternative: You can use the dump movie-renta-backup.sql in your database,
+   Alternative: You can use the dump movie_rental_tar located at the root path or the repository,
    the dump is a postgresql database.
 
 5. Create a symbolic link to use the application in your local environment:
@@ -67,6 +67,9 @@ b. Met the requirements in this link: https://laravel.com/docs/5.8/installation
 
 # 2.How test in Heroku
 To test the application mounted in Heroku access to this link: https://stark-lowlands-94868.herokuapp.com
+
+user: jeovanni.jahm@gmail.com pass: 12345678  role: admin
+user: alex.morales@gmail.com pass: 12345678  role: guest
 
 1. You can register a new user clicking in "Register" option.
 2. Then login with the user, if the notification was not sent, request another notification.

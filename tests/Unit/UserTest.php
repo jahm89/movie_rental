@@ -16,8 +16,8 @@ class UserTest extends TestCase
     public function testLoginSucess()
     {
         $data = [
-                        'email' => "alex.jahm@gmail.com",
-                        'password' => '123456'];
+                        'email' => "jeovanni.jahm@gmail.com",
+                        'password' => '12345678'];
 
         $response = $this->json('POST', '/api/login',$data);
         $response->assertStatus(200);

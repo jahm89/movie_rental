@@ -37,32 +37,32 @@ class MovieTest extends TestCase
      */
     public function testCreateMovieWithAdminRole()
     {
-    	$this->assertTrue(true);
-    	// copy(resource_path('images/random.jpg'), resource_path('images/random2.jpg'));
+    	//$this->assertTrue(true);
+    	copy(resource_path('images/random.jpg'), resource_path('images/random2.jpg'));
 
-    	// $data = [
-     //                    'email' => "alex.jahm@gmail.com",
-     //                    'password' => '123456'];
+    	$data = [
+                        'email' => "jeovanni.jahm@gmail.com",
+                        'password' => '12345678'];
 
-     //    $response = $this->json('POST', '/api/login',$data);
-    	// $response->assertStatus(200);
-    	// $token = $response->getData()->token;
+        $response = $this->json('POST', '/api/login',$data);
+    	$response->assertStatus(200);
+    	$token = $response->getData()->token;
 
 
-     //    $data = [
-     //            'name' => "New Movie from Unit Test",
-     //            'title' => 'New Movie from Unit Test',
-     //            'description' => "This is a movie",
-     //            'stock' => 10, 
-	    //         'rental_price' => 2.3, 
-	    //         'sale_price' => 6.00, 
-	    //         'availability' => 1, 
-	    //         'monetary_penalty' => 5.00, 
-	    //         'image' => new \Illuminate\Http\UploadedFile(resource_path('images/random2.jpg'), 'random2.jpg', null, null, null, true),
-	    //     	'token' => $token];
+        $data = [
+                'name' => "New Movie from Unit Test",
+                'title' => 'New Movie from Unit Test',
+                'description' => "This is a movie",
+                'stock' => 10, 
+	            'rental_price' => 2.3, 
+	            'sale_price' => 6.00, 
+	            'availability' => 1, 
+	            'monetary_penalty' => 5.00, 
+	            'image' => new \Illuminate\Http\UploadedFile(resource_path('images/random2.jpg'), 'random2.jpg', null, null, null, true),
+	        	'token' => $token];
 
-     //    $response = $this->json('POST', '/api/movies',$data);
-     //    $response->assertStatus(200);
+        $response = $this->json('POST', '/api/movies',$data);
+        $response->assertStatus(200);
     }
 
      /**
@@ -74,8 +74,8 @@ class MovieTest extends TestCase
     {
 
     	$data = [
-                        'email' => "jose.jose@gmail.com",
-                        'password' => '123456'];
+                        'email' => "alex.morales@gmail.com",
+                        'password' => '12345678'];
 
         $response = $this->json('POST', '/api/login',$data);
     	$response->assertStatus(200);
@@ -93,7 +93,7 @@ class MovieTest extends TestCase
 	            'monetary_penalty' => 5.00,
 	        	'token' => $token];
 
-        $response = $this->json('PUT', '/api/movies/2',$data);
+        $response = $this->json('PUT', '/api/movies/update/2',$data);
         $response->assertStatus(401);
     }
 
@@ -106,8 +106,8 @@ class MovieTest extends TestCase
     {
 
     	$data = [
-                        'email' => "alex.jahm@gmail.com",
-                        'password' => '123456'];
+                        'email' => "jeovanni.jahm@gmail.com",
+                        'password' => '12345678'];
 
         $response = $this->json('POST', '/api/login',$data);
     	$response->assertStatus(200);
@@ -125,7 +125,7 @@ class MovieTest extends TestCase
 	            'monetary_penalty' => 5.00,
 	        	'token' => $token];
 
-        $response = $this->json('PUT', '/api/movies/2',$data);
+        $response = $this->json('PUT', '/api/movies/update/2',$data);
         $response->assertStatus(200);
     }
 
@@ -187,8 +187,8 @@ class MovieTest extends TestCase
     public function testMovieIndexAvalalibitySuccess()
     {
     	$data = [
-                        'email' => "alex.jahm@gmail.com",
-                        'password' => '123456'];
+                        'email' => "jeovanni.jahm@gmail.com",
+                        'password' => '12345678'];
 
         $response = $this->json('POST', '/api/login',$data);
     	$response->assertStatus(200);
@@ -222,7 +222,7 @@ class MovieTest extends TestCase
      */
     public function testMovieFindSuccess()
     {
-        $response = $this->json('get', '/api/movies/find/3');
+        $response = $this->json('get', '/api/movies/find/5');
         $response->assertStatus(200);
     }
 
@@ -242,7 +242,7 @@ class MovieTest extends TestCase
      */
     public function testMovieFindBynameSuccess()
     {
-        $response = $this->json('get', '/api/movies/findByname?name=example');
+        $response = $this->json('get', '/api/movies/findByname?name=movie');
         $response->assertStatus(200);
     }
 
@@ -270,7 +270,7 @@ class MovieTest extends TestCase
 
     	$data = [
                         'email' => "jeovanni.jahm@gmail.com",
-                        'password' => '123456'];
+                        'password' => '12345678'];
 
         $response = $this->json('POST', '/api/login',$data);
     	$response->assertStatus(200);
@@ -278,7 +278,7 @@ class MovieTest extends TestCase
 
 
         $data = [
-                'movie_id' => 19,
+                'movie_id' => 5,
                 'deadline' => "2019-12-21",
 	        	'token' => $token];
 
@@ -296,7 +296,7 @@ class MovieTest extends TestCase
 
     	$data = [
                         'email' => "jeovanni.jahm@gmail.com",
-                        'password' => '123456'];
+                        'password' => '12345678'];
 
         $response = $this->json('POST', '/api/login',$data);
     	$response->assertStatus(200);
